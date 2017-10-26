@@ -1,66 +1,35 @@
-# React with webpack - starter pack
+# React with lazy loading
 
-Basic packages and scripts to start app developing in react, redux and webpack
 
-## Packages
-* react
-* redux
-    - redux-router
-* webpack
-    - webpack-dev-server
-* less
-* bootstrap css
 
-## Getting started
+## Lazy routing docs
+
+[webpack - getComponent()](https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#getcomponentnextstate-callback)
 
 ```
-$ git clone git@github.com:artemdemo/react-webpack-starter.git YOUR_APP_NAME
+<Route
+    path="courses/:courseId"
+    getComponent={(nextState, cb) => {
+        // do asynchronous stuff to find the components
+        cb(null, Course)
+    }}
+/>
 ```
 
+With webpack:
 ```
-$ cd YOUR_APP_NAME
-```
-
-```
-$ npm install
-```
-
-You also can use `npm i` instead, but yarn is better.
-
-And finally you'll probably want replace `.git` folder with yours:
-
-```
-$ rm -rf .git/ && git init
+<Route
+    path="courses/:courseId"
+    getComponent={(nextState, cb) => {
+        System.import(this.props.component)
+            .then((component) => {
+                callback(null, component);
+            });
+    }}
+/>
 ```
 
-## npm commands
+PlainRoute
 
-* `$ npm start` (alias `$ npm run server:dev`) - build bundle, but without minification and serve it in the browser
-* `$ npm run build` - build version of bundle
-* `$ npm run watch` - watch changes (if don't want to use `webpack-dev-server`)
-* `$ npm run npm-check` - check if some of npm packages are outdated
-* `$ npm run stats` - analyze code distribution in bundle files
-* `$ npm run eslint` - run eslint for code-styling checks
-* `$ npm t` - run tests
-
-**Notice**
-
-In order to run command in production mode you'll need use env variable `NODE_ENV='production'`
-
-### Check for outdated packages
-
-```
-$ npm outdated
-```
-
-After that you can upgrade them:
-
-```
-$ npm update [-g] [<pkg>...]
-```
-
-If you want to upgrade to the latest version use:
-
-```
-$ npm update <pkg>@latest
-```
+* [PlainRoute API (git docs)](https://github.com/ReactTraining/react-router/blob/v3/docs/API.md)
+* [Plain route additional docs](http://knowbody.github.io/react-router-docs/api/PlainRoute.html)

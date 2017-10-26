@@ -2,7 +2,9 @@ import React from 'react';
 import 'babel-polyfill';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute } from 'react-router';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import Route from 'react-router/lib/Route';
+import Router from 'react-router/lib/Router';
 
 import './styles/general.less';
 
