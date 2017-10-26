@@ -1,12 +1,18 @@
 import React from 'react';
-import Icon from '../components/Icon/Icon';
+import LastOrders from '../containers/LastOrders';
+import OrdersMap from '../containers/OrdersMap';
 
 const DashboardView = () => {
     return (
         <div>
-            <Icon name='globe' />
-            &nbsp;
-            Dashboard View
+            <div className='row'>
+                <div className='col-md-4'>
+                    <LastOrders />
+                </div>
+                <div className='col-md-8'>
+                    <OrdersMap />
+                </div>
+            </div>
         </div>
     );
 };
