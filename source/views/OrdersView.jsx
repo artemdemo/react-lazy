@@ -1,14 +1,14 @@
 import React from 'react';
 import Icon from '../components/Icon/Icon';
 
-const SecondView = () => {
+const OrdersView = () => {
     return (
         <div>
             <Icon name='heart-empty' />
             &nbsp;
-            Second View
+            Orders View
         </div>
     );
 };
 
-export default SecondView;
+export default OrdersView;

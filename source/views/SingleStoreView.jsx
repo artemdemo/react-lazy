@@ -1,14 +1,14 @@
 import React from 'react';
 import Icon from '../components/Icon/Icon';
 
-const MainView = () => {
+const SingleStoreView = () => {
     return (
         <div>
-            <Icon name='globe' />
+            <Icon name='fire' />
             &nbsp;
-            Main View
+            Single Store View
         </div>
     );
 };
 
-export default MainView;
+export default SingleStoreView;

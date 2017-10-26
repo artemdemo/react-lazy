@@ -12,17 +12,22 @@ import history from './history';
 import store from './store';
 
 import AppView from './views/AppView';
-import MainView from './views/MainView';
-import SecondView from './views/SecondView';
-import ThirdView from './views/ThirdView';
+import DashboardView from './views/DashboardView';
+import StoresView from './views/StoresView';
+import SingleStoreView from './views/SingleStoreView';
+import OrdersView from './views/OrdersView';
+import CmsView from './views/CmsView';
 
 render(
     <Provider store={store}>
         <Router history={history}>
             <Route path='/' component={AppView}>
-                <IndexRoute component={MainView} />
-                <Route path='/second' component={SecondView} />
-                <Route path='/third' component={ThirdView} />
+                <IndexRoute component={DashboardView} />
+                <Route path='orders' component={OrdersView} />
+                <Route path='stores' component={StoresView}>
+                    <Route path=':storeId' component={SingleStoreView} />
+                </Route>
+                <Route path='cms' component={CmsView} />
             </Route>
         </Router>
     </Provider>,
