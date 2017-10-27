@@ -1,9 +1,5 @@
-import { routerReducer } from 'react-router-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-
-const reducers = combineReducers({
-    routing: routerReducer,
-});
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './reducers';
 
 const store = createStore(reducers, applyMiddleware());
 

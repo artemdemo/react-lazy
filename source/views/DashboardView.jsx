@@ -1,7 +1,8 @@
 import React from 'react';
 import LastOrders from '../containers/LastOrders';
 import OrdersMap from '../containers/OrdersMap';
-import StoresIncome from '../containers/StoresIncome/StoresIncome';
+import StoresIncome from '../containers/StoresIncome';
+import OrdersByCity from '../containers/OrdersByCity';
 
 const DashboardView = () => {
     return (
@@ -16,7 +17,7 @@ const DashboardView = () => {
             </div>
             <div className='row'>
                 <div className='col-md-4'>
-                    Pie Chart
+                    <OrdersByCity />
                 </div>
                 <div className='col-md-8'>
                     <StoresIncome />

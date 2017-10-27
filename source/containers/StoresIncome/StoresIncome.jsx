@@ -1,32 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 import './StoresIncome.less';
 
-const storesIncome = [
-    {name: 'Store #1', 'in': 2000},
-    {name: 'Store #2', 'in': 3000},
-    {name: 'Store #3', 'in': 4740},
-    {name: 'Store #4', 'in': 1990},
-    {name: 'Store #5', 'in': 800},
-];
+const maxIncomeSelector = createSelector(
+    props => props.stores.byIncome,
+    (storesIncome) => {
+        const incomes = storesIncome.map(item => item.in);
+        return Math.max(...incomes);
+    },
+);
 
-const StoresIncome = () => {
-    const maxIncomeSelector = createSelector(
-        () => storesIncome,
-        (storesIncome) => {
-            const incomes = storesIncome.map(item => item.in);
-            return Math.max(...incomes);
-        },
-    );
-
-    const maxIncome = maxIncomeSelector();
+const StoresIncome = (props) => {
+    const { stores } = props;
+    const maxIncome = maxIncomeSelector(props);
 
     return (
         <div>
             <h4>Stores Income</h4>
             <div className='stores-income'>
-                {storesIncome.map((store, index) => {
+                {stores.byIncome.map((store, index) => {
                     const incomePercent = (store.in / maxIncome) * 100;
                     return (
                         <div
@@ -58,4 +52,8 @@ const StoresIncome = () => {
     );
 };
 
-export default StoresIncome;
+export default connect(
+    state => ({
+        stores: state.stores,
+    }),
+)(StoresIncome);
