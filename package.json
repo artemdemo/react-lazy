@@ -1,7 +1,7 @@
 {
   "name": "react-webpack-starter",
-  "version": "5.0.0",
-  "description": "Basic packages and scripts to start app developing in react, redux and webpack",
+  "version": "1.0.0",
+  "description": "Experiments with lazy components and routes in React",
   "main": "webpack.config.js",
   "scripts": {
     "start": "npm run server:dev",
@@ -42,6 +42,8 @@
     "redux": "^3.7.2",
     "reselect": "^3.0.1",
     "style-loader": "^0.19.0",
+    "superagent": "^3.8.0",
+    "superagent-bluebird-promise": "^4.2.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1"
   },
