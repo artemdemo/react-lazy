@@ -10,6 +10,7 @@
     "plugins": [
         "transform-react-jsx",
         "transform-object-assign",
+        "syntax-dynamic-import",
         ["transform-runtime", {
             "polyfill": false,
             "regenerator": true
