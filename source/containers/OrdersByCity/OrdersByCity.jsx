@@ -1,31 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 import './OrdersByCity.less';
 
-const cities = [
-    {name: 'New York', amount: 2100},
-    {name: 'Tokyo', amount: 1450},
-    {name: 'Moscow', amount: 5000},
-    {name: 'Tel Aviv', amount: 3000},
-];
-
 const maxAmountSelector = createSelector(
-    () => cities,
+    props => props.stores.byCity,
     (cities) => {
         const amountList = cities.map(item => item.amount);
         return Math.max(...amountList);
     },
 );
 
-const OrdersByCity = () => {
-    const maxAmount = maxAmountSelector();
+const OrdersByCity = (props) => {
+    const { stores } = props;
+    const maxAmount = maxAmountSelector(props);
 
     return (
         <div>
             <h4>Orders By City</h4>
             <div className='orders-by-city'>
-                {cities.map((city, index) => (
+                {stores.byCity.map((city, index) => (
                     <div
                         key={`orders-by-city-item-${index}`}
                         style={{
@@ -40,4 +35,8 @@ const OrdersByCity = () => {
     );
 };
 
-export default OrdersByCity;
+export default connect(
+    state => ({
+        stores: state.stores,
+    }),
+)(OrdersByCity);

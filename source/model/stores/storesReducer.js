@@ -6,6 +6,12 @@ const initialState = {
         {name: 'Store #4', 'in': 1990},
         {name: 'Store #5', 'in': 800},
     ],
+    byCity: [
+        {name: 'New York', amount: 2100},
+        {name: 'Tokyo', amount: 1450},
+        {name: 'Moscow', amount: 5000},
+        {name: 'Tel Aviv', amount: 3000},
+    ],
 };
 
 export default function(state = initialState, action) {

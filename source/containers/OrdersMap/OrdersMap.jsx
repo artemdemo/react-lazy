@@ -1,23 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Icon from '../../components/Icon/Icon';
 
 import './OrdersMap.less';
 
-const markers = [
-    {top: '10%', left: '15%'},
-    {top: '13%', left: '20%'},
-    {top: '83%', left: '10%'},
-    {top: '60%', left: '90%'},
-    {top: '50%', left: '50%'},
-    {top: '20%', left: '70%'},
-];
+const OrdersMap = (props) => {
+    const { orders } = props;
 
-const OrdersMap = () => {
     return (
         <div className='last-orders'>
             <h4>Orders Map</h4>
             <div className='last-orders-map'>
-                {markers.map((item, index) => (
+                {orders.data.map((item, index) => (
                     <Icon
                         className='last-orders-map__marker'
                         style={{
@@ -33,4 +27,8 @@ const OrdersMap = () => {
     );
 };
 
-export default OrdersMap;
+export default connect(
+    state => ({
+        orders: state.orders,
+    }),
+)(OrdersMap);
