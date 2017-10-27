@@ -40,7 +40,7 @@ const routes = [
         _component: 'AppView',
         indexRoute: {
             // _component: 'DashboardView',
-            _component: 'DashboardView.demo',
+            _component: '_demo/DashboardView.demo',
         },
         childRoutes: [
             {

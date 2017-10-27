@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardView from './DashboardView';
+import DashboardView from '../DashboardView';
 
 class _DashboardView extends DashboardView {
     renderStoresIncome() {
