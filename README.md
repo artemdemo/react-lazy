@@ -33,3 +33,8 @@ PlainRoute
 
 * [PlainRoute API (git docs)](https://github.com/ReactTraining/react-router/blob/v3/docs/API.md)
 * [Plain route additional docs](http://knowbody.github.io/react-router-docs/api/PlainRoute.html)
+
+
+## Additional information
+
+* [Lazy Loaded React Components With Webpack 2](https://dev.to/kayis/lazy-loaded-react-components-with-webpack-2)
