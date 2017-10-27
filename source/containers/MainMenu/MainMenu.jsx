@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'react-router/lib/Link';
 import classnames from 'classnames';
 import Container from '../../components/Container/Container';
-import { requestConfigs } from '../../model/envConfigs/envConfigsSagas';
+import { requestRoutes } from '../../model/routes/routesSagas';
 import config from '../../config';
 
 import './MainMenu.less';
@@ -17,22 +17,9 @@ class MainMenu extends React.Component {
     }
 
     componentDidMount() {
-        requestConfigs().then((configs) => {
-            this.loadMenu(configs.ROUTING);
+        requestRoutes().then((routes) => {
+            this.setState({menu: routes.menu});
         });
-    }
-
-    loadMenu(routingMap) {
-        System.import(`../../routes/routes.${routingMap}`)
-            .then(result => this.setState({menu: result.menu}))
-            .catch((err) => {
-                const routingMapList = routingMap.split('.');
-                if (routingMapList.length > 1) {
-                    this.loadMenu(routingMapList.slice(0, -1).join('.'));
-                } else {
-                    console.error('Dynamic ROUTING loading failed', err);
-                }
-            });
     }
 
     renderItem(item, index) {

@@ -1,10 +1,4 @@
-import AppView from '../views/AppView';
-import StoresView from '../views/StoresView';
-import SingleStoreView from '../views/SingleStoreView';
-import CmsView from '../views/CmsView';
-import pathRedirect from './pathRedirect';
-
-export const menu = [
+const menu = [
     {
         name: 'Dashboard',
         link: '/',
@@ -43,46 +37,38 @@ export const menu = [
 const routes = [
     {
         path: '/',
-        component: AppView,
+        _component: 'AppView',
         indexRoute: {
-            getComponent: (nextState, cb) => {
-                System.import(/* webpackChunkName: "DashboardView" */'../views/DashboardView')
-                    .then((response) => {
-                        cb(null, response.default);
-                    });
-            },
+            _component: 'DashboardView',
         },
         childRoutes: [
             {
                 path: 'orders',
-                getComponent: (nextState, cb) => {
-                    System.import(/* webpackChunkName: "OrdersView" */'../views/OrdersView')
-                        .then((response) => {
-                            cb(null, response.default);
-                        });
-                },
+                _component: 'OrdersView',
             },
             {
                 path: 'stores',
-                component: StoresView,
+                _component: 'StoresView',
                 childRoutes: [
                     {
                         path: ':storeId',
-                        component: SingleStoreView,
+                        _component: 'SingleStoreView',
                     },
                 ],
             },
             {
                 path: 'cms',
-
-                component: CmsView,
+                _component: 'CmsView',
             },
             {
                 path: '*',
-                indexRoute: pathRedirect(),
+                _redirect: true,
             },
         ],
     },
 ];
 
-export default routes;
+module.exports = {
+    menu,
+    routes,
+};

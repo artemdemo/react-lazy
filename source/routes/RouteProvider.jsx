@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import Router from 'react-router/lib/Router';
-import { requestConfigs } from '../model/envConfigs/envConfigsSagas';
+import pathRedirect from './pathRedirect';
+import { requestRoutes } from '../model/routes/routesSagas';
 
 /**
  * Asynchronous router provider
@@ -17,24 +18,54 @@ class RouteProvider extends React.Component {
     }
 
     componentDidMount() {
-        requestConfigs().then((configs) => {
-            this.loadRoutes(configs.ROUTING);
+        requestRoutes().then((result) => {
+            this.loadRoutes(result.routes);
         });
     }
 
-    loadRoutes(routingMap) {
-        System.import(/* webpackChunkName: "route." */ `./routes.${routingMap}`)
-            .then(result => this.setState({
-                routes: result.default,
-            }))
-            .catch((err) => {
-                const routingMapList = routingMap.split('.');
-                if (routingMapList.length > 1) {
-                    this.loadRoutes(routingMapList.slice(0, -1).join('.'));
-                } else {
-                    console.error('Dynamic ROUTING loading failed', err);
+    loadRoutes(routes) {
+        const loadComponent = componentName => new Promise((resolve) => {
+            return System.import(/* webpackChunkName: "view." */`../views/${componentName}`)
+                .then((response) => {
+                    resolve(response.default);
+                });
+        });
+
+        const processChildren = (children) => {
+            return children.map((item) => {
+                const result = (() => {
+                    if (item._component) {
+                        return Object.assign(item, {
+                            getComponent: (nextState, cb) => {
+                                loadComponent(item._component)
+                                    .then(component => cb(null, component));
+                            },
+                        });
+                    }
+                    if (item._redirect) {
+                        return Object.assign(item, {
+                            indexRoute: pathRedirect(),
+                        });
+                    }
+                    return item;
+                })();
+                if (item.indexRoute) {
+                    result.indexRoute = Object.assign(item.indexRoute, {
+                        getComponent: (nextState, cb) => {
+                            loadComponent(item.indexRoute._component)
+                                .then(component => cb(null, component));
+                        },
+                    });
                 }
+                if (item.childRoutes) {
+                    result.childRoutes = processChildren(item.childRoutes);
+                }
+                return result;
             });
+        };
+        this.setState({
+            routes: processChildren(routes),
+        });
     }
 
     render() {

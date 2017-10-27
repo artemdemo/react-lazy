@@ -1,36 +1,8 @@
+const routes = require('../source/routes/routes');
+
 const envConfigs = {
     ROUTING: 'main',
 };
-
-const routes = [
-    {
-        path: '/',
-        component: 'AppView',
-        indexRoute: {
-            component: 'DashboardView',
-        },
-        childRoutes: [
-            {
-                path: 'orders',
-                component: 'OrdersView',
-            },
-            {
-                path: 'stores',
-                component: 'StoresView',
-                childRoutes: [
-                    {
-                        path: ':storeId',
-                        component: 'SingleStoreView',
-                    },
-                ],
-            },
-            {
-                path: 'cms',
-                component: 'CmsView',
-            },
-        ],
-    },
-];
 
 module.exports = {
     '**/**': {
