@@ -14,6 +14,11 @@ module.exports = (options) => {
     return {
         entry: {
             bundle: './source/index.jsx',
+            common: [
+                'reselect',
+                'react-router/lib/Link',
+                './source/components/Icon/Icon.jsx',
+            ],
         },
         output: {
             path: `${process.cwd()}/${options.buildFolder}`,
