@@ -39,7 +39,8 @@ const routes = [
         path: '/',
         _component: 'AppView',
         indexRoute: {
-            _component: 'DashboardView',
+            // _component: 'DashboardView',
+            _component: 'DashboardView.demo',
         },
         childRoutes: [
             {

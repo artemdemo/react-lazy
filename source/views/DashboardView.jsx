@@ -4,27 +4,53 @@ import OrdersMap from '../containers/OrdersMap';
 import StoresIncome from '../containers/StoresIncome';
 import OrdersByCity from '../containers/OrdersByCity';
 
-const DashboardView = () => {
-    return (
-        <div>
-            <div className='row'>
-                <div className='col-md-4'>
-                    <LastOrders />
+class DashboardView extends React.Component {
+    renderLastOrders() {
+        return (
+            <LastOrders />
+        );
+    }
+
+    renderOrdersMap() {
+        return (
+            <OrdersMap />
+        );
+    }
+
+    renderOrdersByCity() {
+        return (
+            <OrdersByCity />
+        );
+    }
+
+    renderStoresIncome() {
+        return (
+            <StoresIncome />
+        );
+    }
+
+    render() {
+        return (
+            <div>
+                <div className='row'>
+                    <div className='col-md-4'>
+                        {this.renderLastOrders()}
+                    </div>
+                    <div className='col-md-8'>
+                        {this.renderOrdersMap()}
+                    </div>
                 </div>
-                <div className='col-md-8'>
-                    <OrdersMap />
+                <div className='row'>
+                    <div className='col-md-4'>
+                        {this.renderOrdersByCity()}
+                    </div>
+                    <div className='col-md-8'>
+                        {this.renderStoresIncome()}
+                    </div>
                 </div>
             </div>
-            <div className='row'>
-                <div className='col-md-4'>
-                    <OrdersByCity />
-                </div>
-                <div className='col-md-8'>
-                    <StoresIncome />
-                </div>
-            </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 export default DashboardView;
