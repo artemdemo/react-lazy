@@ -1,0 +1,32 @@
+@import '../../styles/functions';
+
+.stores-income {
+    .clearFix();
+}
+
+.stores-income-item {
+    float: left;
+}
+    .stores-income-item__name {
+        border-top: 1px solid lightgray;
+        padding: 0  5px;
+        text-align: center;
+    }
+
+.stores-income-item-charts {
+    height: 200px;
+    position: relative;
+}
+    .stores-income-item-charts__column {
+        position: absolute;
+        bottom: 0;
+        width: 70%;
+        background-color: #42A5F5;
+        left: 15%;
+    }
+    .stores-income-item-charts__income {
+        z-index: 1;
+        position: relative;
+        text-align: center;
+        color: #E1F5FE;
+    }
