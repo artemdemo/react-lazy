@@ -1,54 +1,99 @@
 import React from 'react';
 import Link from 'react-router/lib/Link';
+import classnames from 'classnames';
 import Container from '../../components/Container/Container';
+import { requestConfigs } from '../../model/envConfigs/envConfigsSagas';
+import config from '../../config';
 
 import './MainMenu.less';
 
-const MainMenu = () => {
-    return (
-        <div className='main-menu'>
-            <Container>
-                <div className='main-menu-list'>
-                    <div className='main-menu-list-item'>
-                        <div className='main-menu-list-item__content'>
-                            <Link to='/'>Dashboard</Link>
-                        </div>
+class MainMenu extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            menu: [],
+        };
+    }
+
+    componentDidMount() {
+        requestConfigs().then((configs) => {
+            this.loadMenu(configs.ROUTING);
+        });
+    }
+
+    loadMenu(routingMap) {
+        System.import(`../../routes/routes.${routingMap}`)
+            .then(result => this.setState({menu: result.menu}))
+            .catch((err) => {
+                const routingMapList = routingMap.split('.');
+                if (routingMapList.length > 1) {
+                    this.loadMenu(routingMapList.slice(0, -1).join('.'));
+                } else {
+                    console.error('Dynamic ROUTING loading failed', err);
+                }
+            });
+    }
+
+    renderItem(item, index) {
+        const { publicPath } = config;
+
+        const children = (() => {
+            if (item.children && item.children.length > 0) {
+                return (
+                    <div className='main-menu-sublist'>
+                        {item.children.map((item, subIndex) => this.renderItem(item, `${index}-${subIndex}`))}
                     </div>
-                    <div className='main-menu-list-item'>
-                        <div className='main-menu-list-item__content'>
-                            <Link to='/orders'>Orders</Link>
-                        </div>
-                    </div>
-                    <div className='main-menu-list-item
-                                    main-menu-list-item_parent'>
-                        <div className='main-menu-list-item__content
-                                        main-menu-list-item__content_has-submenu'>
-                            Stores
-                        </div>
-                        <div className='main-menu-sublist'>
-                            <div className='main-menu-sublist__item'>
-                                <Link to='/stores/all'>All</Link>
-                            </div>
-                            <div className='main-menu-sublist__item'>
-                                <Link to='/stores/new-york'>New York</Link>
-                            </div>
-                            <div className='main-menu-sublist__item'>
-                                <Link to='/stores/tel-aviv'>Tel Aviv</Link>
-                            </div>
-                            <div className='main-menu-sublist__item'>
-                                <Link to='/stores/tokyo'>Tokyo</Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='main-menu-list-item'>
-                        <div className='main-menu-list-item__content'>
-                            <Link to='/cms'>CMS</Link>
-                        </div>
-                    </div>
+                );
+            }
+            return null;
+        })();
+
+        const itemName = item.link ?
+            (
+                <Link
+                    to={{
+                        pathname: publicPath + item.link,
+                    }}>
+                    {item.name}
+                </Link>
+            ) : (
+                <span>
+                    {item.name}
+                </span>
+            );
+        const itemClass = classnames({
+            'main-menu-list-item': true,
+            'main-menu-list-item_parent': item.children && item.children.length > 0,
+        });
+        const itemNameClass = classnames({
+            'main-menu-list-item__content': true,
+            'main-menu-list-item__content_has-submenu': item.children && item.children.length > 0,
+        });
+        return (
+            <div
+                className={itemClass}
+                key={`main-menu-list-item-${index}`}
+            >
+                <div className={itemNameClass}>
+                    {itemName}
                 </div>
-            </Container>
-        </div>
-    );
-};
+                {children}
+            </div>
+        );
+    }
+
+    render() {
+        return (
+            <div className='main-menu'>
+                <Container>
+                    <div className='main-menu-list'>
+                        {this.state.menu.map((item, index) => this.renderItem(item, index))}
+                    </div>
+                </Container>
+            </div>
+        );
+    }
+}
 
 export default MainMenu;

@@ -22,8 +22,8 @@ With webpack:
     path="courses/:courseId"
     getComponent={(nextState, cb) => {
         System.import(this.props.component)
-            .then((component) => {
-                callback(null, component);
+            .then((response.default) => {
+                cb(null, response.default);
             });
     }}
 />

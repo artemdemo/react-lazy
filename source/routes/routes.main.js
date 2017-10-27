@@ -1,8 +1,6 @@
 import AppView from '../views/AppView';
-import DashboardView from '../views/DashboardView';
 import StoresView from '../views/StoresView';
 import SingleStoreView from '../views/SingleStoreView';
-import OrdersView from '../views/OrdersView';
 import CmsView from '../views/CmsView';
 import pathRedirect from './pathRedirect';
 
@@ -13,7 +11,7 @@ export const menu = [
     },
     {
         name: 'Orders',
-        link: '/',
+        link: '/orders',
     },
     {
         name: 'Stores',
@@ -47,12 +45,22 @@ const routes = [
         path: '/',
         component: AppView,
         indexRoute: {
-            component: DashboardView,
+            getComponent: (nextState, cb) => {
+                System.import(/* webpackChunkName: "DashboardView" */'../views/DashboardView')
+                    .then((response) => {
+                        cb(null, response.default);
+                    });
+            },
         },
         childRoutes: [
             {
                 path: 'orders',
-                component: OrdersView,
+                getComponent: (nextState, cb) => {
+                    System.import(/* webpackChunkName: "OrdersView" */'../views/OrdersView')
+                        .then((response) => {
+                            cb(null, response.default);
+                        });
+                },
             },
             {
                 path: 'stores',
@@ -66,6 +74,7 @@ const routes = [
             },
             {
                 path: 'cms',
+
                 component: CmsView,
             },
             {
