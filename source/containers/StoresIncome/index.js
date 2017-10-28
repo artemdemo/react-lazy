@@ -1,3 +1,3 @@
 import lazify from '../lazify';
 
-export default lazify(() => System.import(/* webpackChunkName: "<StoresIncome />" */ './StoresIncome'));
+export default lazify(() => import(/* webpackChunkName: "<StoresIncome />" */ './StoresIncome'));

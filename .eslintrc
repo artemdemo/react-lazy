@@ -1,5 +1,6 @@
 {
     "extends": "artem-react",
+    "parser": "babel-eslint",
     "globals": {
         "ENV": true
     }
