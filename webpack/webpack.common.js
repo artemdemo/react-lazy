@@ -1,12 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-//const ExtractTextplugin = require('extract-text-webpack-plugin');
 const { IgnorePlugin, DefinePlugin } = require('webpack');
+
+const extractStyles = require('./extractStyles');
 
 /**
  * @param options {Object}
  * @param options.isProduction {Boolean}
  * @param options.buildFolder {String}
+ * @param options.extractStyles {Boolean}
  * @param options.appVersion {String}
  */
 module.exports = (options) => {
@@ -41,21 +43,9 @@ module.exports = (options) => {
                     exclude: /node_modules/,
                     use: 'babel-loader',
                 },
-                {
-                    test: /\.(less|css)$/,
-                    use: [
-                        'style-loader',
-                        { loader: 'css-loader', options: { importLoaders: 1, minimize: true } },
-                        'less-loader',
-                    ],
-                    // use: ExtractTextplugin.extract({
-                    //     fallback: 'style-loader',
-                    //     use: [
-                    //         { loader: 'css-loader', options: { importLoaders: 1, minimize: true } },
-                    //         'less-loader',
-                    //     ],
-                    // }),
-                },
+
+                extractStyles.moduleRule(options.extractStyles),
+
                 {test: /\.(png|gif|jpg)(\?.*$|$)/, use: 'url-loader?limit=100000&name=images/[hash].[ext]'},
                 {test: /\.(json)(\?.*$|$)/, use: 'json-loader'},
                 {test: /\.(html)(\?.*$|$)/, use: 'html-loader'},
@@ -88,13 +78,7 @@ module.exports = (options) => {
                 root: process.cwd(),
                 exclude: ['.gitignore'],
             }),
-            // new ExtractTextplugin({
-            //     filename: options.isProduction ?
-            //         './css/styles-[hash].css' :
-            //         './css/styles.css',
-            //     disable: false,
-            //     allChunks: true,
-            // }),
+            ...extractStyles.plugin(options.extractStyles, options.isProduction),
         ],
     };
 };
