@@ -78,7 +78,7 @@ module.exports = (options) => {
                 root: process.cwd(),
                 exclude: ['.gitignore'],
             }),
-            ...extractStyles.plugin(options.extractStyles, options.isProduction),
+            ...extractStyles.plugins(options.extractStyles, options.isProduction),
         ],
     };
 };

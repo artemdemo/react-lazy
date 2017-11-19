@@ -1,5 +1,4 @@
 import React from 'react';
-import 'babel-polyfill';
 import { render } from 'react-dom';
 import RouteProvider from './routes/RouteProvider';
 

@@ -23,7 +23,7 @@ const moduleRule = (extract = false) => {
     return rule;
 };
 
-const plugin = (extract = false, isProduction = false) => {
+const plugins = (extract = false, isProduction = false) => {
     if (extract) {
         return [
             new ExtractTextplugin({
@@ -40,5 +40,5 @@ const plugin = (extract = false, isProduction = false) => {
 
 module.exports = {
     moduleRule,
-    plugin,
+    plugins,
 };
