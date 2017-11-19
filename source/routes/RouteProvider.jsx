@@ -25,7 +25,7 @@ class RouteProvider extends React.Component {
 
     loadRoutes(routes) {
         const loadComponent = componentName => new Promise((resolve) => {
-            return import(/* webpackChunkName: "view." */`../views/${componentName}`)
+            return import(/* webpackChunkName: "view/[request]" */`../views/${componentName}`)
                 .then((response) => {
                     resolve(response.default);
                 });
