@@ -19,7 +19,9 @@ class DashboardView extends React.Component {
 
     renderOrdersByCity() {
         return (
-            <OrdersByCity />
+            <OrdersByCity>
+                Custom loading ....
+            </OrdersByCity>
         );
     }
 
