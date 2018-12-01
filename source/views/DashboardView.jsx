@@ -1,8 +1,8 @@
 import React from 'react';
-import LastOrders from '../containers/LastOrders';
-import OrdersMap from '../containers/OrdersMap';
-import StoresIncome from '../containers/StoresIncome';
-import OrdersByCity from '../containers/OrdersByCity';
+import LastOrders from '../containers/LastOrders/LastOrder.async';
+import OrdersMap from '../containers/OrdersMap/OrdersMap.async';
+import StoresIncome from '../containers/StoresIncome/StoresIncome.async';
+import OrdersByCity from '../containers/OrdersByCity/OrdersByCity.async';
 
 class DashboardView extends React.Component {
     renderLastOrders() {
